@@ -1,19 +1,37 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
+allure {
+    version = '2.20.1'
+    useJUnit5 {
+        version = '2.20.1'
+    }
+}
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
+sourceCompatibility = 11
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
+    testImplementation 'com.codeborne:selenide:6.17.1'
+    testImplementation 'mysql:mysql-connector-java:8.0.18'
+    testImplementation 'org.postgresql:postgresql:42.2.24'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
+    testImplementation 'com.google.code.gson:gson:2.8.6'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
 test {
     useJUnitPlatform()
+    systemProperty 'db.url', System.getProperty('db.url')
 }
