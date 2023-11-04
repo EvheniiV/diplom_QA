@@ -58,4 +58,28 @@ public class DataHelper {
         String futureYear = LocalDate.now().plusYears(10).format(DateTimeFormatter.ofPattern("yy"));
         return futureYear;
     }
+
+    public static String getValidOwner() {
+        return faker.name().fullName();
+    }
+
+    public static String getCyrillicDataOwner() {
+        return "Петр Иванов";
+    }
+
+    public static String getOwnerWithDigits() {
+        return "123456789";
+    }
+
+    public static String getOwnerWithSpecialChars() {
+        return "!№;%:?*()-+";
+    }
+
+    public static String getValidCode() {
+        return faker.number().digits(3);
+    }
+
+    public static String getInvalidFormatCode() {
+        return faker.number().digits(2);
+    }
 }
