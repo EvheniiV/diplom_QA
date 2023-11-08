@@ -12,15 +12,23 @@ public class DataHelper {
     private static final Faker faker = new Faker(new Locale("en"));
     private static final Random random = new Random();
 
-    public String getApprovedCardNumber() {
+    public static String getApprovedCardNumber() {
         return "4444444444444441";
     }
 
-    public String getDeclinedCardNumber() {
+    public static String getApprovedCardStatus() {
+        return "APPROVED";
+    }
+
+    public static String getDeclinedCardNumber() {
         return "4444444444444442";
     }
 
-    public String getRandomCardNumber() {
+    public static String getDeclinedCardStatus() {
+        return "DECLINED";
+    }
+
+    public static String getRandomCardNumber() {
             return faker.business().creditCardNumber();
      }
 

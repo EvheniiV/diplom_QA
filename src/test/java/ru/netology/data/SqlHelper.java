@@ -1,5 +1,6 @@
 package ru.netology.data;
 
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -8,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SqlHelper {
-
     private static final String url = System.getProperty("db.url");
     private static final String user = System.getProperty("db.user");
     private static final String password = System.getProperty("db.password");
@@ -26,29 +26,6 @@ public class SqlHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static long getOrderEntityCount() {
-        String countSQL = "SELECT COUNT(*) FROM order_entity;";
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            QueryRunner runner = new QueryRunner();
-            Long count = runner.query(conn, countSQL, new ScalarHandler<>());
-            return count != null ? count : 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    private static String getData(String query) throws SQLException {
-        QueryRunner runner = new QueryRunner();
-        String data = "";
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            data = runner.query(conn, query, new ScalarHandler<>());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return data;
     }
 
     public static String findPayStatus() {
@@ -71,4 +48,27 @@ public class SqlHelper {
         }
     }
 
+
+    private static String getData(String query) throws SQLException {
+        QueryRunner runner = new QueryRunner();
+        String data = "";
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            data = runner.query(conn, query, new ScalarHandler<>());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static long getOrderEntityCount() {
+        String countSQL = "SELECT COUNT(*) FROM order_entity;";
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            QueryRunner runner = new QueryRunner();
+            Long count = runner.query(conn, countSQL, new ScalarHandler<>());
+            return count != null ? count : 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }
