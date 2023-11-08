@@ -76,6 +76,7 @@ public class TestByDebit {
         var code = DataHelper.getValidCode();
         paymentFormPageDebit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageDebit.waitForWrongFormatMessage();
+        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
@@ -89,6 +90,7 @@ public class TestByDebit {
         var code = DataHelper.getValidCode();
         paymentFormPageDebit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageDebit.waitForWrongFormatMessage();
+        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
@@ -102,6 +104,7 @@ public class TestByDebit {
         var code = DataHelper.getValidCode();
         paymentFormPageDebit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageDebit.waitForFailedNotification();
+        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test

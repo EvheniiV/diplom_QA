@@ -76,6 +76,7 @@ public class TestByCredit {
         var code = DataHelper.getValidCode();
         paymentFormPageCredit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageCredit.waitForWrongFormatMessage();
+        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
@@ -89,6 +90,7 @@ public class TestByCredit {
         var code = DataHelper.getValidCode();
         paymentFormPageCredit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageCredit.waitForWrongFormatMessage();
+        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
@@ -102,6 +104,7 @@ public class TestByCredit {
         var code = DataHelper.getValidCode();
         paymentFormPageCredit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageCredit.waitForFailedNotification();
+        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
