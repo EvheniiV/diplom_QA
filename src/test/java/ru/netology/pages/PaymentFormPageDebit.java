@@ -24,7 +24,6 @@ public class PaymentFormPageDebit {
     private SelenideElement successedNotification = $(byText("Операция одобрена Банком."));
     private SelenideElement mandatoryFieldMessage = $(byText("Поле обязательно для заполнения"));
     private SelenideElement wrongFormatMessage = $(byText("Неверный формат"));
-    private SelenideElement invalidCharactersMessage = $(byText("Поле содержит недопустимые символы"));
     private SelenideElement wrongCardExpirationMessage = $(byText("Неверно указан срок действия карты"));
     private SelenideElement cardExpiredMessage = $(byText("Истёк срок действия карты"));
 
@@ -65,10 +64,6 @@ public class PaymentFormPageDebit {
 
     public void waitForWrongFormatMessage() {
         wrongFormatMessage.shouldBe(Condition.visible, Duration.ofSeconds(11));
-    }
-
-    public void waitForInvalidCharactersMessage() {
-        invalidCharactersMessage.shouldBe(Condition.visible, Duration.ofSeconds(11));
     }
 
     public void waitForWrongCardExpirationMessage() {

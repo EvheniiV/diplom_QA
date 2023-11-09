@@ -5,12 +5,10 @@ import com.github.javafaker.Faker;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Random;
 
 public class DataHelper {
 
     private static final Faker faker = new Faker(new Locale("en"));
-    private static final Random random = new Random();
 
     public static String getApprovedCardNumber() {
         return "4444444444444441";
@@ -29,12 +27,13 @@ public class DataHelper {
     }
 
     public static String getRandomCardNumber() {
-            return faker.business().creditCardNumber();
-     }
+        return faker.business().creditCardNumber();
+    }
 
     public static String getCardNumberWith15Digits() {
         return "4444 4444 4444 444";
     }
+
     public static String getEmptyString() {
         return "";
     }
