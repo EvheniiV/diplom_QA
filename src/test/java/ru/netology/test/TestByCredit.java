@@ -15,6 +15,7 @@ public class TestByCredit {
 
     private PaymentFormPageCredit paymentFormPageCredit;
     private MainPage mainPage;
+//    private static final String sutUrl = System.getProperty("sut.url");
 
     @BeforeAll
     static void setUpAll() {
@@ -23,7 +24,7 @@ public class TestByCredit {
 
     @BeforeEach
     public void setUp() {
-        mainPage = open("http://localhost:8080/", MainPage.class);
+        mainPage = open(System.getProperty("sut.url"), MainPage.class);
     }
 
     @AfterAll

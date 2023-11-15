@@ -23,7 +23,7 @@ public class TestByDebit {
 
     @BeforeEach
     public void setUp() {
-        mainPage = open("http://localhost:8080/", MainPage.class);
+        mainPage = open(System.getProperty("sut.url"), MainPage.class);
     }
 
     @AfterAll
@@ -33,7 +33,7 @@ public class TestByDebit {
 
     @AfterEach
     void clearDatabaseTables() {
-        open("http://localhost:8080/");
+        SqlHelper.clearTables();
     }
 
     @Test
