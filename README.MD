@@ -66,13 +66,13 @@ java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifac
 - для MySQL:
 
 ```
-./gradlew clean test "-Ddatasource.url=jdbc:mysql://localhost:3306/app"
+./gradlew clean test "-db.url=jdbc:mysql://localhost:3306/app"
 ```
 
 - для PostgreSQL:
 
 ```
-./gradlew clean test "-Ddatasource.url=jdbc:postgresql://localhost:5432/app"
+./gradlew clean test "-db.url=jdbc:postgresql://localhost:5432/app"
 ```
 Сервис будет доступен в браузере по адресу: _http://localhost:8080/_
 
