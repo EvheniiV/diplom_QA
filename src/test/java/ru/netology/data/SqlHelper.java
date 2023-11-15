@@ -1,74 +1,58 @@
 package ru.netology.data;
 
-
+import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class SqlHelper {
     private static final String url = System.getProperty("db.url");
     private static final String user = System.getProperty("db.user");
     private static final String password = System.getProperty("db.password");
+    @SneakyThrows
+    public static Connection getConnection() {
+        return DriverManager.getConnection(url, "app", "pass");
+    }
 
+    @SneakyThrows
     public static void clearTables() {
-        String deleteOrderEntity = "DELETE FROM order_entity;";
-        String deletePaymentEntity = "DELETE FROM payment_entity;";
-        String deleteCreditRequestEntity = "DELETE FROM credit_request_entity;";
         QueryRunner runner = new QueryRunner();
-
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            runner.update(conn, deleteOrderEntity);
-            runner.update(conn, deletePaymentEntity);
-            runner.update(conn, deleteCreditRequestEntity);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (var connection = getConnection()) {
+            runner.execute(connection, "DELETE FROM credit_request_entity");
+            runner.execute(connection, "DELETE FROM order_entity");
+            runner.execute(connection, "DELETE FROM payment_entity");
         }
     }
 
+    @SneakyThrows
     public static String findPayStatus() {
-        String statusSQL = "SELECT status FROM payment_entity;";
-        try {
-            return getData(statusSQL);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return "ОШИБКА: Не удалось получить статус покупки из базы данных.";
-        }
-    }
-
-    public static String findCreditStatus() {
-        String statusSQL = "SELECT status FROM credit_request_entity;";
-        try {
-            return getData(statusSQL);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return "ОШИБКА: Не удалось получить статус покупки в кредит из базы данных.";
-        }
-    }
-
-
-    private static String getData(String query) throws SQLException {
         QueryRunner runner = new QueryRunner();
-        String data = "";
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            data = runner.query(conn, query, new ScalarHandler<>());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        String SqlStatus = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
+        try (var connection = getConnection()) {
+            String result = runner.query(connection, SqlStatus, new ScalarHandler<>());
+            return result;
         }
-        return data;
     }
 
+    @SneakyThrows
+    public static String findCreditStatus() {
+        QueryRunner runner = new QueryRunner();
+        String SqlStatus = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
+        try (var connection = getConnection()) {
+            String result = runner.query(connection, SqlStatus, new ScalarHandler<>());
+            return result;
+        }
+    }
+
+    @SneakyThrows
     public static long getOrderEntityCount() {
         String countSQL = "SELECT COUNT(*) FROM order_entity;";
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             QueryRunner runner = new QueryRunner();
             Long count = runner.query(conn, countSQL, new ScalarHandler<>());
-            return count != null ? count : 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            return count;
         }
     }
 }
