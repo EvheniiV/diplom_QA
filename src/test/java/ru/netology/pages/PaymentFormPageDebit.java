@@ -37,11 +37,6 @@ public class PaymentFormPageDebit {
         continueButton.click();
     }
 
-    public PaymentFormPageDebit clear() {
-        clearFields();
-        return new PaymentFormPageDebit();
-    }
-
     public void clearFields() {
         cardNumberField.doubleClick().sendKeys(Keys.BACK_SPACE);
         monthField.doubleClick().sendKeys(Keys.BACK_SPACE);
@@ -59,18 +54,18 @@ public class PaymentFormPageDebit {
     }
 
     public void waitForMandatoryFieldMessage() {
-        mandatoryFieldMessage.shouldBe(Condition.visible, Duration.ofSeconds(11));
+        mandatoryFieldMessage.shouldBe(Condition.visible);
     }
 
     public void waitForWrongFormatMessage() {
-        wrongFormatMessage.shouldBe(Condition.visible, Duration.ofSeconds(11));
+        wrongFormatMessage.shouldBe(Condition.visible);
     }
 
     public void waitForWrongCardExpirationMessage() {
-        wrongCardExpirationMessage.shouldBe(Condition.visible, Duration.ofSeconds(11));
+        wrongCardExpirationMessage.shouldBe(Condition.visible);
     }
 
     public void waitForCardExpiredMessage() {
-        cardExpiredMessage.shouldBe(Condition.visible, Duration.ofSeconds(11));
+        cardExpiredMessage.shouldBe(Condition.visible);
     }
 }

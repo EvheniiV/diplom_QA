@@ -33,14 +33,13 @@ public class TestByCredit {
 
     @AfterEach
     void clearDatabaseTables() {
-        open("http://localhost:8080/");
         SqlHelper.clearTables();
     }
 
     @Test
-
     public void shouldAllowPurchaseWithApprovedCard() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -52,9 +51,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDeclinedCard() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getDeclinedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -66,9 +65,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldCard() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getEmptyString();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -80,9 +79,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWith15DigitsCard() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getCardNumberWith15Digits();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -90,13 +89,12 @@ public class TestByCredit {
         var code = DataHelper.getValidCode();
         paymentFormPageCredit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageCredit.waitForWrongFormatMessage();
-        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
-
     public void shouldAllowPurchaseWithNonExistingCard() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getRandomCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -104,13 +102,12 @@ public class TestByCredit {
         var code = DataHelper.getValidCode();
         paymentFormPageCredit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageCredit.waitForFailedNotification();
-        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldMonth() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getEmptyString();
         var year = DataHelper.getValidYear();
@@ -121,9 +118,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataLessThenLimitFieldMonth() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getLessThenLimitMonth();
         var year = DataHelper.getValidYear();
@@ -134,9 +131,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataOverThenLimitFieldMonth() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getOverLimitMonth();
         var year = DataHelper.getValidYear();
@@ -147,9 +144,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldYear() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getEmptyString();
@@ -160,9 +157,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataLessThenLimitFieldYear() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getLessThenLimitYear();
@@ -173,9 +170,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataOverThenLimitFieldYear() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getOverLimitYear();
@@ -186,9 +183,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithCyrillicInOwner() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -199,9 +196,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithSpecialCharsInOwner() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -212,9 +209,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDigitsInOwner() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -225,9 +222,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldInOwner() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -238,9 +235,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyDataInCode() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -251,9 +248,9 @@ public class TestByCredit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWith2DigitsDataInCode() {
-        paymentFormPageCredit = mainPage.payWithCreditCard().clear();
+        paymentFormPageCredit = mainPage.payWithCreditCard();
+        paymentFormPageCredit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();

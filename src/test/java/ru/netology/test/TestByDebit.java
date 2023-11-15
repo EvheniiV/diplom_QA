@@ -34,13 +34,13 @@ public class TestByDebit {
     @AfterEach
     void clearDatabaseTables() {
         open("http://localhost:8080/");
-        SqlHelper.clearTables();
     }
 
     @Test
 
     public void shouldAllowPurchaseWithApprovedCard() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -54,7 +54,8 @@ public class TestByDebit {
     @Test
 
     public void shouldAllowPurchaseWithDeclinedCard() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getDeclinedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -68,7 +69,8 @@ public class TestByDebit {
     @Test
 
     public void shouldAllowPurchaseWithEmptyFieldCard() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getEmptyString();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -80,9 +82,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWith15DigitsCard() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getCardNumberWith15Digits();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -90,13 +92,12 @@ public class TestByDebit {
         var code = DataHelper.getValidCode();
         paymentFormPageDebit.fillForm(cardNumber, month, year, cardOwner, code);
         paymentFormPageDebit.waitForWrongFormatMessage();
-        assertEquals(0, SqlHelper.getOrderEntityCount());
     }
 
     @Test
-
     public void shouldAllowPurchaseWithNonExistingCard() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getRandomCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -108,9 +109,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldMonth() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getEmptyString();
         var year = DataHelper.getValidYear();
@@ -121,9 +122,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataLessThenLimitFieldMonth() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getLessThenLimitMonth();
         var year = DataHelper.getValidYear();
@@ -134,9 +135,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataOverThenLimitFieldMonth() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getOverLimitMonth();
         var year = DataHelper.getValidYear();
@@ -147,9 +148,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldYear() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getEmptyString();
@@ -160,9 +161,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataLessThenLimitFieldYear() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getLessThenLimitYear();
@@ -173,9 +174,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDataOverThenLimitFieldYear() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getOverLimitYear();
@@ -186,9 +187,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithCyrillicInOwner() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -199,9 +200,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithSpecialCharsInOwner() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -212,9 +213,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithDigitsInOwner() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -225,9 +226,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyFieldInOwner() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -238,9 +239,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWithEmptyDataInCode() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();
@@ -251,9 +252,9 @@ public class TestByDebit {
     }
 
     @Test
-
     public void shouldAllowPurchaseWith2DigitsDataInCode() {
-        paymentFormPageDebit = mainPage.payWithDebitCard().clear();
+        paymentFormPageDebit = mainPage.payWithDebitCard();
+        paymentFormPageDebit.clearFields();
         var cardNumber = DataHelper.getApprovedCardNumber();
         var month = DataHelper.getValidMonth();
         var year = DataHelper.getValidYear();

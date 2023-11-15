@@ -11,9 +11,10 @@ public class SqlHelper {
     private static final String url = System.getProperty("db.url");
     private static final String user = System.getProperty("db.user");
     private static final String password = System.getProperty("db.password");
+
     @SneakyThrows
     public static Connection getConnection() {
-        return DriverManager.getConnection(url, "app", "pass");
+        return DriverManager.getConnection(url, user, password);
     }
 
     @SneakyThrows
